@@ -4,6 +4,7 @@
 const state = {
     currentLanguage: 'en', // 'en' or 'hi'
     activeTab: 'tab-dashboard',
+    selectedModel: 'gemini', // 'gemini' or 'chatgpt'
     userData: {
         name: '',
         dob: '',
@@ -746,7 +747,8 @@ async function submitOracleQuestion(questionText) {
                 zodiac: state.userData.zodiac.name,
                 lifePath: state.userData.lifePath,
                 language: state.currentLanguage,
-                question: questionText
+                question: questionText,
+                model: state.selectedModel
             })
         });
         
@@ -869,5 +871,21 @@ function toggleCosmicAura() {
     } else {
         icon.className = 'fa-solid fa-volume-xmark sound-icon';
         ambientAudio.pause();
+    }
+}
+
+function selectModel(modelName) {
+    state.selectedModel = modelName;
+    
+    // Update UI buttons
+    const optGemini = document.getElementById('opt-gemini');
+    const optChatgpt = document.getElementById('opt-chatgpt');
+    
+    if (modelName === 'gemini') {
+        optGemini.classList.add('active');
+        optChatgpt.classList.remove('active');
+    } else {
+        optGemini.classList.remove('active');
+        optChatgpt.classList.add('active');
     }
 }

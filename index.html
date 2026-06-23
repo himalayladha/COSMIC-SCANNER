@@ -432,6 +432,19 @@
                         <h3 class="section-title"><span data-en="Interactive AI Cosmic Oracle" data-hi="संवादात्मक एआई ब्रह्मांडीय ओरेकल">Interactive AI Cosmic Oracle</span></h3>
                         <p class="section-desc" data-en="Consult the Oracle using your scanned blueprint. Select a suggested question below or converse freely." data-hi="अपने स्कैन किए गए खाके के साथ ओरेकल से परामर्श करें। नीचे दिए गए सुझाए गए प्रश्नों में से चुनें या स्वतंत्र रूप से संवाद करें।">Consult the Oracle using your scanned blueprint. Select a suggested question below or converse freely.</p>
                         
+                        <!-- Model Selector -->
+                        <div class="model-selector-bar glass-panel">
+                            <span class="selector-label" data-en="AI Oracle Engine:" data-hi="एआई ओरेकल इंजन:">AI Oracle Engine:</span>
+                            <div class="model-options">
+                                <button type="button" class="model-opt active" id="opt-gemini" onclick="selectModel('gemini')">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Gemini 1.5 Flash</span>
+                                </button>
+                                <button type="button" class="model-opt" id="opt-chatgpt" onclick="selectModel('chatgpt')">
+                                    <i class="fa-solid fa-bolt text-success"></i> <span>ChatGPT (4o-mini)</span>
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Chat Box -->
                         <div class="chat-container glass-panel">
                             <div class="chat-messages" id="chat-messages-box">
