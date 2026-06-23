@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cosmic Palm & Astrology Scanner - Life Blueprint</title>
+    <meta name="description" content="Generate your personalized cosmic life blueprint using advanced AI palmistry line analysis and birth chart calculations. Discover your destiny today.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Starfield & Nebulae -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="app-container">
+        
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-container">
+                <i class="fa-solid fa-wand-magic-sparkles logo-icon"></i>
+                <h1 class="logo-text">COSMIC <span class="accent-text">SCANNER</span></h1>
+            </div>
+            <p class="tagline">AI-Powered Palmistry & Astrology Blueprint</p>
+        </header>
+
+        <!-- SCREEN 1: INPUT PORTAL -->
+        <section id="portal-screen" class="app-screen active">
+            <div class="portal-card glass-panel">
+                <div class="portal-header">
+                    <h2>Ascend to Your Blueprint</h2>
+                    <p>Enter your birth details and provide palm images to initiate the AI Cosmic Analysis.</p>
+                </div>
+                
+                <form id="cosmic-form" class="cosmic-form">
+                    <!-- Birth Details Group -->
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-circle-nodes"></i> 1. Birth Details</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="input-name">Full Name / पूरा नाम</label>
+                                <input type="text" id="input-name" required placeholder="e.g. Palak Vishwakarma" autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-dob">Date of Birth / जन्म तिथि</label>
+                                <input type="date" id="input-dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-time">Time of Birth / जन्म समय</label>
+                                <input type="time" id="input-time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-place">Place of Birth / जन्म स्थान</label>
+                                <input type="text" id="input-place" required placeholder="e.g. Seoni, Madhya Pradesh">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Palm Capture Group -->
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-hands"></i> 2. Palm Scanning (Upload or Camera)</h3>
+                        <p class="section-desc">For best results, upload a clear photo of your palms or capture using your device camera.</p>
+                        
+                        <div class="palm-capture-grid">
+                            <!-- Left Palm -->
+                            <div class="palm-capture-box glass-panel" id="left-palm-container">
+                                <div class="box-title">Left Palm (Emotional & Potential)</div>
+                                <div class="preview-area" id="left-preview-area">
+                                    <i class="fa-solid fa-hand-lizard upload-icon"></i>
+                                    <p>Select source to capture left palm</p>
+                                </div>
+                                <div class="capture-actions">
+                                    <button type="button" class="btn btn-secondary btn-sm" onclick="openCameraModal('left')">
+                                        <i class="fa-solid fa-camera"></i> Use Camera
+                                    </button>
+                                    <label class="btn btn-secondary btn-sm file-input-label">
+                                        <i class="fa-solid fa-upload"></i> Upload Photo
+                                        <input type="file" class="palm-file-input" id="left-file-input" accept="image/*" onchange="handleFileSelect(event, 'left')">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Right Palm -->
+                            <div class="palm-capture-box glass-panel" id="right-palm-container">
+                                <div class="box-title">Right Palm (Action & Present Path)</div>
+                                <div class="preview-area" id="right-preview-area">
+                                    <i class="fa-solid fa-hand-lizard upload-icon right-hand-icon"></i>
+                                    <p>Select source to capture right palm</p>
+                                </div>
+                                <div class="capture-actions">
+                                    <button type="button" class="btn btn-secondary btn-sm" onclick="openCameraModal('right')">
+                                        <i class="fa-solid fa-camera"></i> Use Camera
+                                    </button>
+                                    <label class="btn btn-secondary btn-sm file-input-label">
+                                        <i class="fa-solid fa-upload"></i> Upload Photo
+                                        <input type="file" class="palm-file-input" id="right-file-input" accept="image/*" onchange="handleFileSelect(event, 'right')">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-submit">
+                        <button type="submit" id="btn-submit-scan" class="btn btn-primary btn-glow btn-lg">
+                            <i class="fa-solid fa-dharmachakra"></i> Initiate AI Cosmic Scan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: SCANNING ANIMATION -->
+        <section id="scanner-screen" class="app-screen">
+            <div class="scanner-card glass-panel">
+                <h2>Analyzing Astral and Physical Matrices</h2>
+                <p class="scanner-subtitle">Aligning planetary coordinates with dermatoglyphic pathways...</p>
+                
+                <div class="scanner-visualizer">
+                    <!-- Left Palm Scanner -->
+                    <div class="scanner-box glass-panel" id="left-scanner-box">
+                        <div class="scanner-palm-wrapper">
+                            <img id="scanner-left-img" src="" alt="Left Palm Preview">
+                            <div class="laser-line"></div>
+                            <div class="scan-grid"></div>
+                            <div class="scanning-nodes" id="left-nodes"></div>
+                        </div>
+                        <span class="scanner-label">LEFT PALM SCANNER</span>
+                    </div>
+
+                    <!-- Right Palm Scanner -->
+                    <div class="scanner-box glass-panel" id="right-scanner-box">
+                        <div class="scanner-palm-wrapper">
+                            <img id="scanner-right-img" src="" alt="Right Palm Preview">
+                            <div class="laser-line"></div>
+                            <div class="scan-grid"></div>
+                            <div class="scanning-nodes" id="right-nodes"></div>
+                        </div>
+                        <span class="scanner-label">RIGHT PALM SCANNER</span>
+                    </div>
+                </div>
+
+                <!-- Console Output Terminal -->
+                <div class="terminal-container glass-panel">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">COSMIC_AI_ENGINE_v4.2</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-feed">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: LIFE BLUEPRINT REPORT -->
+        <section id="report-screen" class="app-screen">
+            <!-- Report Controls -->
+            <div class="report-controls glass-panel">
+                <div class="profile-summary">
+                    <i class="fa-solid fa-yin-yang profile-icon"></i>
+                    <div>
+                        <h2 id="report-user-name">Palak Vishwakarma</h2>
+                        <p id="report-user-meta">16 June 2008 | Seoni, MP</p>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary btn-toggle" id="btn-lang-toggle" onclick="toggleLanguage()">
+                        <i class="fa-solid fa-language"></i> <span id="lang-text">हिन्दी में देखें</span>
+                    </button>
+                    <button class="btn btn-primary" id="btn-print-report" onclick="window.print()">
+                        <i class="fa-solid fa-file-pdf"></i> <span data-en="Download PDF" data-hi="PDF डाउनलोड करें">Download PDF</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-reset" onclick="resetScanner()">
+                        <i class="fa-solid fa-rotate-left"></i> <span data-en="Scan Another" data-hi="नया स्कैन">Scan Another</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Report Panel -->
+            <div class="report-grid-container">
+                
+                <!-- Left Navigation Panel (Tabs) -->
+                <nav class="report-nav glass-panel">
+                    <button class="tab-btn active" onclick="switchTab('tab-dashboard')">
+                        <i class="fa-solid fa-chart-line"></i> <span data-en="Overview" data-hi="अवलोकन">Overview</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-personality')">
+                        <i class="fa-solid fa-circle-user"></i> <span data-en="Personality" data-hi="व्यक्तित्व">Personality</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-astromancy')">
+                        <i class="fa-solid fa-hand"></i> <span data-en="Astromancy & Palmistry" data-hi="ज्योतिष एवं हस्तरेखा">Astromancy & Palmistry</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-pathways')">
+                        <i class="fa-solid fa-graduation-cap"></i> <span data-en="Career & Study" data-hi="करियर और शिक्षा">Career & Study</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-timeline')">
+                        <i class="fa-solid fa-timeline"></i> <span data-en="Destiny Timeline" data-hi="भाग्य चक्र समयरेखा">Destiny Timeline</span>
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('tab-oracle')">
+                        <i class="fa-solid fa-comment-dots"></i> <span data-en="Interactive AI Oracle" data-hi="एआई ओरेकल वार्ता">Interactive AI Oracle</span>
+                    </button>
+                </nav>
+
+                <!-- Right Content Panel -->
+                <div class="report-content-panel glass-panel" id="print-area">
+                    
+                    <!-- TAB 1: DASHBOARD / OVERVIEW -->
+                    <div id="tab-dashboard" class="tab-pane active">
+                        <h3 class="section-title"><span data-en="Aura Status & Profile Metrics" data-hi="आभा स्थिति एवं प्रोफाइल संकेतक">Aura Status & Profile Metrics</span></h3>
+                        <div class="dashboard-metrics-grid">
+                            
+                            <!-- Astromancy Quick Info -->
+                            <div class="metric-card glass-panel flex-center">
+                                <div class="astro-sign-badge" id="badge-zodiac">
+                                    <i class="fa-solid fa-gemini astro-sign-icon"></i>
+                                    <div class="sign-name" id="label-zodiac-name">Gemini</div>
+                                    <div class="sign-element" id="label-zodiac-element">Air / वायु</div>
+                                </div>
+                                <div class="astro-sign-badge" id="badge-lifepath">
+                                    <div class="lifepath-num" id="label-lifepath-num">5</div>
+                                    <div class="sign-name" data-en="Life Path Number" data-hi="जीवन पथ संख्या">Life Path Number</div>
+                                    <div class="sign-element" id="label-lifepath-desc">The Adventurer / अन्वेषक</div>
+                                </div>
+                            </div>
+
+                            <!-- Circular Progress bars -->
+                            <div class="metric-card glass-panel">
+                                <h4 class="metric-card-title" data-en="Core Cosmic Balances" data-hi="मुख्य ब्रह्मांडीय संतुलन">Core Cosmic Balances</h4>
+                                <div class="radial-progress-container">
+                                    <div class="radial-item">
+                                        <div class="radial-progress" id="progress-intuition" style="--percent: 90;">
+                                            <div class="inner-circle" id="val-intuition">90%</div>
+                                        </div>
+                                        <span class="radial-label" data-en="Intuition" data-hi="अंतर्ज्ञान">Intuition</span>
+                                    </div>
+                                    <div class="radial-item">
+                                        <div class="radial-progress" id="progress-loyalty" style="--percent: 95;">
+                                            <div class="inner-circle" id="val-loyalty">95%</div>
+                                        </div>
+                                        <span class="radial-label" data-en="Loyalty" data-hi="वफादारी">Loyalty</span>
+                                    </div>
+                                    <div class="radial-item">
+                                        <div class="radial-progress" id="progress-resilience" style="--percent: 85;">
+                                            <div class="inner-circle" id="val-resilience">85%</div>
+                                        </div>
+                                        <span class="radial-label" data-en="Resilience" data-hi="सहनशीलता">Resilience</span>
+                                    </div>
+                                    <div class="radial-item">
+                                        <div class="radial-progress" id="progress-overthinking" style="--percent: 88;">
+                                            <div class="inner-circle" id="val-overthinking">88%</div>
+                                        </div>
+                                        <span class="radial-label" data-en="Overthinking" data-hi="अति-विचार">Overthinking</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Core Traits Summary -->
+                        <div class="traits-summary-container">
+                            <div class="summary-box glass-panel">
+                                <h4><i class="fa-solid fa-shield-halved text-success"></i> <span data-en="Primary Strengths" data-hi="मुख्य ताकत">Primary Strengths</span></h4>
+                                <ul class="traits-list" id="list-strengths">
+                                    <!-- Filled by JS -->
+                                </ul>
+                            </div>
+                            <div class="summary-box glass-panel">
+                                <h4><i class="fa-solid fa-triangle-exclamation text-warning"></i> <span data-en="Cosmic Weaknesses" data-hi="कमज़ोरियाँ और चुनौतियाँ">Weaknesses & Challenges</span></h4>
+                                <ul class="traits-list" id="list-weaknesses">
+                                    <!-- Filled by JS -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: PERSONALITY (THE MIRROR) -->
+                    <div id="tab-personality" class="tab-pane">
+                        <h3 class="section-title"><span data-en="The Mirror - Personality & Character Analysis" data-hi="द मिरर - व्यक्तित्व एवं चरित्र विश्लेषण">The Mirror - Personality Analysis</span></h3>
+                        
+                        <div class="profile-narrative glass-panel" id="personality-narrative-text">
+                            <!-- Filled dynamically -->
+                        </div>
+
+                        <!-- Interactive Barnum Cards -->
+                        <h4 class="sub-section-title"><i class="fa-solid fa-ghost"></i> <span data-en="Extreme Personality Echoes (Deep Resonance)" data-hi="गहन व्यक्तित्व प्रतिध्वनि (Extreme Barnum Statements)">Extreme Personality Echoes</span></h4>
+                        <p class="section-desc" data-en="Click on each card to reveal the deeper psychological AI reading of your hidden thoughts." data-hi="अपने छिपे हुए विचारों के गहन मनोवैज्ञानिक विश्लेषण को देखने के लिए प्रत्येक कार्ड पर क्लिक करें।">Click on each card to reveal the deeper psychological AI reading of your hidden thoughts.</p>
+                        
+                        <div class="barnum-deck" id="barnum-cards-container">
+                            <!-- Filled dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: ASTROMANCY & PALMISTRY -->
+                    <div id="tab-astromancy" class="tab-pane">
+                        <h3 class="section-title"><span data-en="Astral Alignment & Hand Readings" data-hi="ग्रह संरेखण और हस्तरेखा पठन">Astral Alignment & Hand Readings</span></h3>
+                        
+                        <div class="astromancy-layout">
+                            <!-- Astromancy Visual -->
+                            <div class="astro-image-card glass-panel">
+                                <img src="celestial_chart.png" alt="Cosmic Astrological Alignment Chart" class="report-image">
+                                <div class="astro-card-overlay">
+                                    <h4 id="astro-chart-name">Palak Vishwakarma's Birth Alignment</h4>
+                                    <p id="astro-chart-coordinates">16 June 2008 | Seoni, MP</p>
+                                </div>
+                            </div>
+                            <!-- Astromancy Details -->
+                            <div class="astro-text-card glass-panel" id="astrology-interpretation">
+                                <!-- Filled dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="palmistry-layout">
+                            <!-- Palmistry Details -->
+                            <div class="palm-text-card glass-panel" id="palmistry-interpretation">
+                                <!-- Filled dynamically -->
+                            </div>
+                            <!-- Palmistry Visual -->
+                            <div class="palm-image-card glass-panel">
+                                <img src="palmistry_hand.png" alt="Scanned Hand Lines" class="report-image">
+                                <div class="palm-card-overlay">
+                                    <h4 data-en="Detected Hand Dermatoglyphics" data-hi="पहचानी गई हाथ की रेखाएं">Detected Hand Dermatoglyphics</h4>
+                                    <p data-en="AI Landmark Coordinates Active" data-hi="एआई लैंडमार्क सक्रिय">AI Landmark Coordinates Active</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: PATHWAYS (CAREER & EDUCATION) -->
+                    <div id="tab-pathways" class="tab-pane">
+                        <h3 class="section-title"><span data-en="Education & Career Destinies" data-hi="शिक्षा और करियर की संभावनाएँ">Education & Career Destinies</span></h3>
+                        
+                        <div class="pathways-grid">
+                            <!-- Career Stats -->
+                            <div class="pathway-card glass-panel">
+                                <h4 data-en="Suitable Professional Fields" data-hi="उपयुक्त व्यावसायिक क्षेत्र"><i class="fa-solid fa-briefcase"></i> Suitable Professional Fields</h4>
+                                <div class="careers-tags" id="career-tags-container">
+                                    <!-- Filled dynamically -->
+                                </div>
+                                <div class="career-rating-box">
+                                    <span class="rating-label" data-en="Career Stability Index" data-hi="करियर स्थिरता सूचकांक">Career Stability Index:</span>
+                                    <div class="stars-display">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <span class="rating-value">4.0 / 5.0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Education Stats -->
+                            <div class="pathway-card glass-panel">
+                                <h4 data-en="Learning Style & Academic Blueprint" data-hi="सीखने की शैली और शैक्षणिक खाका"><i class="fa-solid fa-book-open"></i> Learning Style & Academic Blueprint</h4>
+                                <div class="academic-narrative" id="academic-blueprint-text">
+                                    <!-- Filled dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: DESTINY TIMELINE -->
+                    <div id="tab-timeline" class="tab-pane">
+                        <h3 class="section-title"><span data-en="Vibrational Timeline & Major Phases" data-hi="जीवन चक्र कंपन समयरेखा और मुख्य पड़ाव">Vibrational Timeline & Major Phases</span></h3>
+                        
+                        <!-- Love Life Horizontal Timeline -->
+                        <h4 class="sub-section-title"><i class="fa-solid fa-heart text-danger"></i> <span data-en="Relationship & Attraction Timeline" data-hi="प्रेम एवं संबंध समयरेखा">Relationship & Attraction Timeline</span></h4>
+                        <div class="horizontal-timeline-container">
+                            <div class="timeline-track"></div>
+                            
+                            <div class="timeline-node">
+                                <div class="node-age" id="age-node-1">17–19</div>
+                                <div class="node-content glass-panel">
+                                    <h5 data-en="Aura Resonance" data-hi="आभा आकर्षण">Aura Resonance</h5>
+                                    <p data-en="First strong attraction or deeper emotional awakening occurs." data-hi="प्रथम तीव्र आकर्षण अथवा गहरे भावनात्मक जुड़ाव की अनुभूति।">First strong attraction or deeper emotional awakening occurs.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-node">
+                                <div class="node-age" id="age-node-2">18–22</div>
+                                <div class="node-content glass-panel">
+                                    <h5 data-en="Deep Bond Potential" data-hi="गहन संबंध संभावना">Deep Bond Potential</h5>
+                                    <p data-en="High potential for a significant, lessons-teaching serious relationship." data-hi="एक महत्वपूर्ण और गंभीर संबंध बनने की प्रबल संभावना, जो परिपक्वता लाएगा।">High potential for a significant, lessons-teaching serious relationship.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-node">
+                                <div class="node-age" id="age-node-3">23–27</div>
+                                <div class="node-content glass-panel">
+                                    <h5 data-en="Harmonious Anchor" data-hi="स्थिर संबंध काल">Harmonious Anchor</h5>
+                                    <p data-en="Most stable relationship and potential marriage window." data-hi="सबसे स्थिर एवं गंभीर संबंध की अवधि, जीवनसाथी के साथ अनुकूलता।">Most stable relationship and potential marriage window.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Best Phases of Life -->
+                        <h4 class="sub-section-title"><i class="fa-solid fa-crown text-warning"></i> <span data-en="Peak Life Windows" data-hi="जीवन के सर्वश्रेष्ठ और ऊर्जावान समय">Peak Life Windows</span></h4>
+                        <div class="best-phases-grid">
+                            <div class="phase-card glass-panel border-glow-green">
+                                <div class="phase-badge green-badge" data-en="The Growth Ascent" data-hi="विकास और उत्थान">The Growth Ascent</div>
+                                <h5 id="phase-title-1">Age 24 – 32</h5>
+                                <ul class="phase-list" id="phase-list-1">
+                                    <!-- Filled dynamically -->
+                                </ul>
+                            </div>
+                            <div class="phase-card glass-panel border-glow-blue">
+                                <div class="phase-badge blue-badge" data-en="The Stable Balance" data-hi="स्थिरता और संतुलन">The Stable Balance</div>
+                                <h5 id="phase-title-2">Age 32+</h5>
+                                <ul class="phase-list" id="phase-list-2">
+                                    <!-- Filled dynamically -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 6: AI ORACLE -->
+                    <div id="tab-oracle" class="tab-pane">
+                        <h3 class="section-title"><span data-en="Interactive AI Cosmic Oracle" data-hi="संवादात्मक एआई ब्रह्मांडीय ओरेकल">Interactive AI Cosmic Oracle</span></h3>
+                        <p class="section-desc" data-en="Consult the Oracle using your scanned blueprint. Select a suggested question below or converse freely." data-hi="अपने स्कैन किए गए खाके के साथ ओरेकल से परामर्श करें। नीचे दिए गए सुझाए गए प्रश्नों में से चुनें या स्वतंत्र रूप से संवाद करें।">Consult the Oracle using your scanned blueprint. Select a suggested question below or converse freely.</p>
+                        
+                        <!-- Chat Box -->
+                        <div class="chat-container glass-panel">
+                            <div class="chat-messages" id="chat-messages-box">
+                                <div class="chat-bubble oracle-bubble">
+                                    <p data-en="Greetings seeker. I have integrated your palm lines and planetary alignments. What answers do you seek from the cosmos today?" data-hi="नमस्ते जिज्ञासु। मैंने आपके हस्तरेखा और ग्रहीय संरेखण का विश्लेषण कर लिया है। आज आप ब्रह्मांड से क्या उत्तर जानना चाहते हैं?">Greetings seeker. I have integrated your palm lines and planetary alignments. What answers do you seek from the cosmos today?</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Suggested Questions -->
+                            <div class="suggested-questions" id="suggested-questions-container">
+                                <!-- Loaded dynamically based on calculated profile -->
+                            </div>
+
+                            <!-- Chat Input -->
+                            <form id="chat-form" class="chat-input-bar">
+                                <input type="text" id="chat-input-field" placeholder="Ask the Oracle..." autocomplete="off">
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- WEBCAM MODAL -->
+    <div id="camera-modal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3 id="modal-palm-title">Capture Left Palm</h3>
+                <button type="button" class="btn-close" onclick="closeCameraModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="camera-stream-wrapper">
+                    <video id="webcam-video" autoplay playsinline muted></video>
+                    <!-- Visual guide overlay of a hand shape -->
+                    <div class="hand-guide-overlay">
+                        <i class="fa-regular fa-hand"></i>
+                        <p class="guide-text" data-en="Align palm inside the outline" data-hi="हाथ को रेखा के अंदर रखें">Align palm inside the outline</p>
+                    </div>
+                </div>
+                <!-- Device selection (if multiple cameras) -->
+                <div class="form-group camera-select-group">
+                    <label for="camera-select">Select Camera:</label>
+                    <select id="camera-select" class="glass-panel" onchange="changeCamera()"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeCameraModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="captureSnapshot()"><i class="fa-solid fa-camera-retro"></i> Capture</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background music or sound effects toggle (Optional and subtle) -->
+    <div class="sound-control-badge" id="sound-toggle" onclick="toggleCosmicAura()">
+        <i class="fa-solid fa-volume-xmark sound-icon"></i>
+        <span>Cosmic Hum</span>
+    </div>
+
+    <!-- Audio element for cosmic background ambient (Subtle wind/hum, low volume) -->
+    <audio id="cosmic-ambient-audio" loop src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav"></audio>
+
+    <!-- App Script -->
+    <script src="app.js"></script>
+</body>
+</html>
